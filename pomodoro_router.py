@@ -47,7 +47,7 @@ def update_pomodoro_sessions(pomodoro_sessions, curr_datetime: datetime):
                "application/json": {
                    "schema": {
                        "example": {
-                           "detail": "Task with given ID doesn't exist"
+                           "detail": "Task with the given ID doesn't exist"
                        }
                    }
                }
@@ -59,7 +59,7 @@ def update_pomodoro_sessions(pomodoro_sessions, curr_datetime: datetime):
                "application/json": {
                    "schema": {
                        "example": {
-                           "detail": "Pomodoro with given task ID already exists"
+                           "detail": "Pomodoro with the given task ID already exists"
                        }
                    }
                }
@@ -69,7 +69,7 @@ def update_pomodoro_sessions(pomodoro_sessions, curr_datetime: datetime):
 )
 def create_pomodoro_session(pomodoro: Pomodoro):
     if not task_exists(pomodoro.task_id):
-        raise HTTPException(status_code=404, detail="Task with given ID doesn't exist")
+        raise HTTPException(status_code=404, detail="Task with the given ID doesn't exist")
 
     curr_datetime = datetime.now()
 
@@ -79,7 +79,7 @@ def create_pomodoro_session(pomodoro: Pomodoro):
         if pomodoro_session["task_id"] != pomodoro.task_id or pomodoro_session["completed"]:
             continue
 
-        raise HTTPException(status_code=409, detail="Pomodoro with given task ID already exists")
+        raise HTTPException(status_code=409, detail="Pomodoro with the given task ID already exists")
 
     pomodoro_session = {
         "task_id": pomodoro.task_id,
@@ -115,7 +115,7 @@ def create_pomodoro_session(pomodoro: Pomodoro):
                "application/json": {
                    "schema": {
                        "example": {
-                           "detail": "Active pomodoro with given task ID doesn't exist"
+                           "detail": "Active pomodoro with the given task ID doesn't exist"
                        }
                    }
                }
@@ -137,7 +137,7 @@ def stop_pomodoro_session(task_id: int):
 
         return pomodoro_session
 
-    raise HTTPException(status_code=404, detail="Active pomodoro with given task ID doesn't exist")
+    raise HTTPException(status_code=404, detail="Active pomodoro with the given task ID doesn't exist")
 
 @pomodoro_router.get(
     "/stats",
@@ -151,19 +151,19 @@ def stop_pomodoro_session(task_id: int):
                         "properties": {
                             "1": {
                                 "type": "integer",
-                                "description": "Liczba zakończonych sesji Pomodoro dla zadania z ID 1"
+                                "description": "Number of completed pomodoro sessions for task with ID 1"
                             },
                             "2": {
                                 "type": "integer",
-                                "description": "Liczba zakończonych sesji Pomodoro dla zadania z ID 2"
+                                "description": "Number of completed pomodoro sessions for task with ID 2"
                             },
                             "3": {
                                 "type": "integer",
-                                "description": "Liczba zakończonych sesji Pomodoro dla zadania z ID 3"
+                                "description": "Number of completed pomodoro sessions for task with ID 3"
                             },
                             "total_time": {
                                 "type": "integer",
-                                "description": "Łączny czas spędzony na zadaniach w sekundach"
+                                "description": "Total time spent on tasks in seconds"
                             }
                         },
                        "example": {

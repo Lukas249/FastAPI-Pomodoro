@@ -86,7 +86,7 @@ def get_tasks(status: Status = None):
               "application/json": {
                 "schema": {
                   "example": {
-                    "detail": "Task with that title already exists"
+                    "detail": "Task with the given title already exists"
                   }
                 }
               }
@@ -98,7 +98,7 @@ def add_task(task: NewTask):
 
     for t in tasks:
         if t["title"] == task.title:
-            raise HTTPException(status_code=409, detail="Task with that title already exists")
+            raise HTTPException(status_code=409, detail="Task with the given title already exists")
 
     task = {
         "id": get_new_task_id(),
@@ -134,7 +134,7 @@ def add_task(task: NewTask):
                "application/json": {
                    "schema": {
                        "example": {
-                           "detail": "Task with that ID doesn't exist"
+                           "detail": "Task with the given ID doesn't exist"
                        }
                    }
                }
@@ -147,7 +147,7 @@ def get_task_details(task_id: int):
         if task["id"] == task_id:
             return task
 
-    raise HTTPException(status_code=404, detail="Task with that ID doesn't exist")
+    raise HTTPException(status_code=404, detail="Task with the given ID doesn't exist")
 
 
 @tasks_router.put(
@@ -173,7 +173,7 @@ def get_task_details(task_id: int):
                    "application/json": {
                        "schema": {
                            "example": {
-                               "detail": "Task with that ID doesn't exist"
+                               "detail": "Task with the given ID doesn't exist"
                            }
                        }
                    }
@@ -200,7 +200,7 @@ def update_task(task_id: int, task: UpdateTask):
 
         return task
 
-    raise HTTPException(status_code=404, detail="Task with that ID doesn't exist")
+    raise HTTPException(status_code=404, detail="Task with the given ID doesn't exist")
 
 @tasks_router.delete(
     "/{task_id}",
@@ -225,7 +225,7 @@ def update_task(task_id: int, task: UpdateTask):
                "application/json": {
                    "schema": {
                        "example": {
-                           "detail": "Task with that ID doesn't exist"
+                           "detail": "Task with the given ID doesn't exist"
                        }
                    }
                }
@@ -238,4 +238,4 @@ def delete_task(task_id: int):
         if tasks[i]["id"] == task_id:
             return tasks.pop(i)
 
-    raise HTTPException(status_code=404, detail="Task with that ID doesn't exist")
+    raise HTTPException(status_code=404, detail="Task with the given ID doesn't exist")
